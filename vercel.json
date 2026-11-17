@@ -1,0 +1,6 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "http://IP-PANEL:PORT-PANEL/api/:path*" }
+  ]
+}

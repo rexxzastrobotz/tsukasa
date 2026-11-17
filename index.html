@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astrobot Jadibot — Bot WhatsApp pribadimu</title>
+<meta name="description" content="Hubungkan nomor WhatsApp, minta kode pairing, bot langsung aktif.">
+<meta name="color-scheme" content="light dark">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#161a24;--mu:#667085;--bd:#e4e7ee;--ac:#5b6cff;--ac2:#8a5bff;--ok:#12b76a;--err:#e5484d;--sh:0 10px 30px rgba(30,40,90,.08)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0d1017;--card:#151a24;--tx:#eef1f8;--mu:#97a0b5;--bd:#232a38;--sh:0 10px 30px rgba(0,0,0,.4)}}
+:root[data-theme=dark]{--bg:#0d1017;--card:#151a24;--tx:#eef1f8;--mu:#97a0b5;--bd:#232a38;--sh:0 10px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px}
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--bd)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px;text-decoration:none;color:var(--tx)}
+.lg{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:grid;place-items:center;color:#fff;font-size:15px}
+.nav a.l{color:var(--mu);text-decoration:none;font-size:14px;margin-right:14px}
+.ib{background:var(--card);border:1px solid var(--bd);color:var(--tx);width:38px;height:38px;border-radius:11px;cursor:pointer;font-size:16px}
+.hero{padding:34px 0 8px;text-align:center}
+.chip{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--mu);border:1px solid var(--bd);background:var(--card);padding:5px 12px;border-radius:99px}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(18,183,106,.18)}
+h1{font-size:clamp(28px,7vw,40px);line-height:1.15;margin:16px 0 10px;letter-spacing:-.5px}
+h1 em{font-style:normal;background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.mu{color:var(--mu)}.sm{font-size:13px}.ctr{text-align:center}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:22px;box-shadow:var(--sh);margin:22px 0}
+h2{font-size:20px;margin:0 0 6px}
+label{display:block;font-weight:600;font-size:14px;margin:16px 0 6px}
+input{width:100%;font:inherit;color:var(--tx);background:var(--bg);border:1.5px solid var(--bd);border-radius:13px;padding:13px 14px;outline:none}
+input:focus{border-color:var(--ac)}
+.btn{display:block;width:100%;font:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--ac),var(--ac2));border:0;border-radius:13px;padding:14px;margin-top:18px;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.ghost{background:transparent;color:var(--tx);border:1.5px solid var(--bd)}
+.lnk{background:none;border:0;color:var(--ac);font:inherit;font-size:13px;cursor:pointer;padding:6px 0;margin-top:6px}
+.err{color:var(--err);font-size:14px;min-height:20px;margin:10px 0 0}
+.ticket{display:block;width:100%;margin:18px 0 12px;padding:22px 10px;font:800 34px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.14em;color:var(--tx);background:var(--bg);border:2px dashed var(--ac);border-radius:16px;cursor:pointer}
+.bar{height:6px;border-radius:9px;background:var(--bd);overflow:hidden}
+.bar b{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .5s linear}
+ol.st{padding-left:0;list-style:none;counter-reset:s;margin:18px 0 0}
+ol.st li{counter-increment:s;display:flex;gap:12px;margin:12px 0;font-size:15px}
+ol.st li:before{content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--ac);color:#fff;font-weight:700;font-size:13px;display:grid;place-items:center}
+.grid{display:grid;gap:12px}
+.step{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px}
+.step b{display:block;margin-bottom:2px}
+section{padding:14px 0}
+details{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;margin:10px 0}
+summary{cursor:pointer;font-weight:600}details p{margin:10px 0 0;color:var(--mu);font-size:15px}
+footer{padding:26px 0 40px;text-align:center;color:var(--mu);font-size:13px}
+[hidden]{display:none!important}
+
+.nav a.l.on{color:var(--tx);font-weight:600}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;border:1px solid var(--bd);color:var(--mu)}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--mu)}.badge.online{color:var(--ok)}.badge.online i{background:var(--ok)}.badge.pairing,.badge.menyambung{color:#f59e0b}.badge.pairing i,.badge.menyambung i{background:#f59e0b}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.stats div{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;text-align:center}.stats b{display:block;font-size:26px}
+.cta{display:flex;gap:10px;justify-content:center;margin-top:18px}.cta .btn{margin:0;width:auto;padding:13px 20px;text-decoration:none}
+.row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px 14px;margin:8px 0}.row .g{flex:1;min-width:0}.row b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.av{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;display:grid;place-items:center;font-weight:800}
+.btns{display:flex;gap:10px;flex-wrap:wrap}.btns .btn{flex:1;min-width:130px}
+.btn.danger{background:var(--err)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;padding:18px;z-index:20}.modal .card{margin:0;max-width:460px;width:100%;max-height:92vh;overflow:auto}
+.ok{color:var(--ok);font-size:14px;min-height:20px;margin:10px 0 0}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+<a class="logo" href="#/"><span class="lg">✦</span>Astrobot</a>
+<div><a class="l" href="#/bots">Daftar Bot</a><a class="l" href="#/akun">Bot Saya</a><button class="ib" id="theme" aria-label="Ganti tema">◐</button></div>
+</div></header>
+<main class="wrap">
+
+<section data-v="home">
+<div class="hero"><span class="chip"><i></i>Jadibot Portal</span>
+<h1>Bikin bot WhatsApp <em>pribadimu</em>, tanpa coding</h1>
+<p class="mu">Hubungkan nomor, atur nama dan owner, bot langsung online. Semua dikelola dari website.</p>
+<div class="cta"><a class="btn" href="#/buat">Buat Bot Sekarang</a><a class="btn ghost" href="#/akun">Bot Saya</a></div></div>
+<div class="stats"><div><b id="s-on">0</b><span class="mu sm">Bot online</span></div><div><b id="s-all">0</b><span class="mu sm">Total bot</span></div></div>
+<h2>Cara kerja</h2><div class="grid">
+<div class="step"><b>1. Isi data</b><span class="mu">Nomor bot, nama bot, owner, dan password untuk masuk lagi.</span></div>
+<div class="step"><b>2. Tautkan</b><span class="mu">Masukkan kode pairing di menu Perangkat tertaut WhatsApp.</span></div>
+<div class="step"><b>3. Bot aktif</b><span class="mu">Online di server, tampil di daftar, bisa dikelola dari Bot Saya.</span></div></div>
+<h2 style="margin-top:24px">Paket</h2>
+<div class="card" style="margin-top:10px"><b>FREE</b><p class="mu" style="margin:6px 0 0">Gratis. Fitur saat ini: <b>.ping</b> (tes bot). Fitur lain menyusul.</p></div>
+<h2 style="margin-top:24px">Pertanyaan umum</h2>
+<details><summary>Bot tetap jalan kalau HP saya mati?</summary><p>Ya. Bot berjalan di server, bukan di HP kamu.</p></details>
+<details><summary>Bagaimana masuk dari HP atau browser lain?</summary><p>Buka Bot Saya, masuk dengan nomor bot dan password yang kamu buat.</p></details>
+<details><summary>Bagaimana menghapus bot?</summary><p>Bot Saya › Hapus bot. Sesi dan datanya ikut terhapus.</p></details>
+</section>
+
+<section data-v="buat" hidden>
+<div class="card"><h2>Buat bot baru</h2>
+<p class="mu sm" style="margin:0">Nomor yang dipakai akan jadi bot. Awalan 0 otomatis jadi 62.</p>
+<label for="c-num">Nomor bot</label><input id="c-num" inputmode="numeric" placeholder="628123456789">
+<label for="c-name">Nama bot</label><input id="c-name" maxlength="30" placeholder="Contoh: Aira Bot">
+<label for="c-on">Nomor owner (opsional)</label><input id="c-on" inputmode="numeric" placeholder="628123456789">
+<label for="c-oname">Nama owner (opsional)</label><input id="c-oname" maxlength="30" placeholder="Contoh: Rakku">
+<label for="c-pw">Password bot</label><input id="c-pw" type="password" maxlength="40" autocomplete="new-password" placeholder="Minimal 6 karakter">
+<p class="err" id="c-err"></p><button class="btn" id="c-go">Buat Kode Pairing</button>
+<p class="mu sm ctr">Sudah punya bot? <a href="#/masuk" style="color:var(--ac)">Masuk ke Bot Saya</a></p></div>
+</section>
+
+<section data-v="masuk" hidden>
+<div class="card"><h2>Masuk ke Bot Saya</h2>
+<label for="l-num">Nomor bot</label><input id="l-num" inputmode="numeric" placeholder="628123456789">
+<label for="l-pw">Password</label><input id="l-pw" type="password" autocomplete="current-password">
+<p class="err" id="l-err"></p><button class="btn" id="l-go">Masuk</button>
+<p class="mu sm ctr">Belum punya bot? <a href="#/buat" style="color:var(--ac)">Buat sekarang</a></p></div>
+</section>
+
+<section data-v="akun" hidden>
+<div class="card"><div class="row" style="margin:0;border:0;padding:0"><span class="av" id="a-av">B</span><div class="g"><b id="a-name">-</b><span class="mu sm" id="a-num">-</span></div><span class="badge" id="a-st"><i></i><span>...</span></span></div></div>
+<div class="card"><h2>Pengaturan bot</h2>
+<label for="a-n">Nama bot</label><input id="a-n" maxlength="30">
+<label for="a-on">Nomor owner</label><input id="a-on" inputmode="numeric">
+<label for="a-oname">Nama owner</label><input id="a-oname" maxlength="30">
+<p class="ok" id="a-ok"></p><p class="err" id="a-err"></p>
+<button class="btn" id="a-save">Simpan</button></div>
+<div class="card"><div class="btns"><button class="btn ghost" id="a-code">Minta kode pairing</button><button class="btn ghost" id="a-stop">Putuskan sesi</button><button class="btn ghost" id="a-out">Keluar</button></div>
+<details><summary>Ganti password</summary><label for="p-old">Password lama</label><input id="p-old" type="password"><label for="p-new">Password baru</label><input id="p-new" type="password"><button class="btn ghost" id="p-go">Ganti password</button></details>
+<details><summary style="color:var(--err)">Hapus bot</summary><p>Sesi WhatsApp, database, dan akun bot dihapus permanen.</p><label for="d-pw">Password</label><input id="d-pw" type="password"><button class="btn danger" id="d-go">Hapus bot</button></details></div>
+</section>
+
+<section data-v="bots" hidden>
+<h2>Bot online <span class="badge online"><i></i>live</span></h2>
+<p class="mu sm" style="margin:0 0 10px">Diperbarui otomatis.</p>
+<input id="q" placeholder="Cari nama bot"><div id="list" style="margin-top:10px"></div>
+</section>
+</main>
+
+<div class="modal" id="modal" hidden><div class="card">
+<h2>Tautkan ke WhatsApp</h2><p class="mu sm" style="margin:0">Ketuk kode untuk menyalin.</p>
+<button class="ticket" id="code" title="Salin kode">----</button>
+<div class="bar"><b id="bar"></b></div><p class="mu sm ctr" id="ttl" style="margin:8px 0 0"></p>
+<ol class="st"><li><span>Buka <b>WhatsApp</b> › titik tiga › <b>Perangkat tertaut</b></span></li><li><span>Ketuk <b>Tautkan perangkat</b> › <b>Tautkan dengan nomor telepon</b></span></li><li><span>Masukkan kode di atas. Bot online, lalu coba kirim <b>.ping</b> dari WhatsApp lain</span></li></ol>
+<button class="btn" id="m-ok">Selesai</button></div></div>
+<footer>© Astrobot · Jadibot Portal</footer>
+
+<script>
+var $=function(s){return document.querySelector(s)},TK='jb-token',timer=null,poll=null;
+function tok(){try{return localStorage.getItem(TK)||''}catch(e){return ''}}
+function setTok(v){try{v?localStorage.setItem(TK,v):localStorage.removeItem(TK)}catch(e){}}
+async function api(p,b,auth){
+  var h={'Content-Type':'application/json'};if(auth)h.Authorization='Bearer '+tok();
+  try{var r=await fetch(p,{method:b===undefined?'GET':'POST',headers:h,body:b===undefined?undefined:JSON.stringify(b)});
+    var d=await r.json().catch(function(){return{}});
+    if(r.status===401&&auth){setTok('');location.hash='#/masuk'}
+    return d.status?d:{status:false,message:d.message||'Terjadi kesalahan.'}}
+  catch(e){return{status:false,message:'Koneksi bermasalah, coba lagi.'}}
+}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
+function busy(b,t,fn){var o=b.textContent;b.disabled=true;b.textContent=t;return fn().finally(function(){b.disabled=false;b.textContent=o})}
+
+/* routing */
+function route(){
+  var v=(location.hash.replace(/^#\/?/,'')||'home').split('?')[0];
+  if(['home','buat','masuk','akun','bots'].indexOf(v)<0)v='home';
+  if(v==='akun'&&!tok())return location.hash='#/masuk';
+  if(v==='masuk'&&tok())return location.hash='#/akun';
+  document.querySelectorAll('[data-v]').forEach(function(s){s.hidden=s.dataset.v!==v});
+  clearInterval(poll);window.scrollTo(0,0);
+  if(v==='home')loadStats();
+  if(v==='bots'){loadBots();poll=setInterval(loadBots,10000)}
+  if(v==='akun'){loadMe(true);poll=setInterval(function(){loadMe(false)},5000)}
+}
+window.addEventListener('hashchange',route);
+
+/* beranda + daftar */
+async function loadStats(){var d=await api('/api/bots');if(d.status){$('#s-on').textContent=d.online;$('#s-all').textContent=d.total}}
+async function loadBots(){
+  var d=await api('/api/bots'),l=$('#list');if(!d.status)return;
+  var q=$('#q').value.toLowerCase(),n=0;l.textContent='';
+  d.bots.forEach(function(b){
+    if(q&&b.name.toLowerCase().indexOf(q)<0)return;n++;
+    var r=el('div','row'),g=el('div','g');
+    r.appendChild(el('span','av',(b.name[0]||'B').toUpperCase()));g.appendChild(el('b','',b.name));g.appendChild(el('span','mu sm',b.number));r.appendChild(g);
+    var s=el('span','badge online');s.appendChild(el('i'));s.appendChild(el('span','','online'));r.appendChild(s);l.appendChild(r)});
+  if(!n)l.appendChild(el('p','mu ctr','Belum ada bot online.'));
+}
+$('#q').addEventListener('input',loadBots);
+
+/* modal kode pairing */
+function showCode(code,after){
+  $('#code').textContent=code;$('#modal').hidden=false;clearInterval(timer);var t0=Date.now();
+  function tick(){var e=Math.floor((Date.now()-t0)/1000),left=120-e;$('#bar').style.width=Math.max(0,left/120*100)+'%';
+    $('#ttl').textContent=left>0?'Kode berlaku '+Math.floor(left/60)+':'+String(left%60).padStart(2,'0'):'Kode kedaluwarsa. Tutup lalu minta kode baru di Bot Saya.';if(left<=0)clearInterval(timer)}
+  tick();timer=setInterval(tick,500);$('#m-ok').onclick=function(){clearInterval(timer);$('#modal').hidden=true;if(after)after()};
+}
+$('#code').onclick=function(){try{navigator.clipboard.writeText(this.textContent).then(function(){$('#ttl').textContent='Kode disalin ✓'})}catch(e){}};
+
+/* buat bot */
+$('#c-go').onclick=function(){
+  var b=this,er=$('#c-err');er.textContent='';
+  busy(b,'Membuat kode...',async function(){
+    var d=await api('/api/create',{phone:$('#c-num').value,name:$('#c-name').value,ownerNum:$('#c-on').value,ownerName:$('#c-oname').value,password:$('#c-pw').value});
+    if(!d.status){er.textContent=d.message;return}
+    setTok(d.token);showCode(d.code,function(){location.hash='#/akun'})});
+};
+/* masuk */
+$('#l-go').onclick=function(){
+  var b=this,er=$('#l-err');er.textContent='';
+  busy(b,'Masuk...',async function(){
+    var d=await api('/api/login',{phone:$('#l-num').value,password:$('#l-pw').value});
+    if(!d.status){er.textContent=d.message;return}setTok(d.token);location.hash='#/akun'});
+};
+/* bot saya */
+var filled=false;
+async function loadMe(first){
+  var d=await api('/api/me',undefined,true);if(!d.status)return;var m=d.me;
+  $('#a-av').textContent=(m.name[0]||'B').toUpperCase();$('#a-name').textContent=m.name;$('#a-num').textContent=m.number;
+  var s=$('#a-st');s.className='badge '+m.status;s.lastChild.textContent=m.status;
+  $('#a-code').hidden=m.status==='online';$('#a-stop').hidden=m.status==='offline';
+  if(first||!filled){$('#a-n').value=m.name;$('#a-on').value=m.ownerNum;$('#a-oname').value=m.ownerName;filled=true}
+}
+$('#a-save').onclick=function(){
+  var b=this;$('#a-err').textContent='';$('#a-ok').textContent='';
+  busy(b,'Menyimpan...',async function(){
+    var d=await api('/api/me/update',{name:$('#a-n').value,ownerNum:$('#a-on').value,ownerName:$('#a-oname').value},true);
+    if(!d.status)$('#a-err').textContent=d.message;else{$('#a-ok').textContent='Tersimpan ✓';loadMe(false)}});
+};
+$('#a-code').onclick=function(){
+  var b=this;$('#a-err').textContent='';
+  busy(b,'Membuat kode...',async function(){var d=await api('/api/me/code',{},true);if(!d.status)$('#a-err').textContent=d.message;else showCode(d.code)});
+};
+$('#a-stop').onclick=function(){
+  if(!confirm('Putuskan sesi WhatsApp bot ini? Akun dan pengaturan tetap tersimpan.'))return;
+  busy(this,'Memutuskan...',async function(){var d=await api('/api/me/stop',{},true);if(!d.status)$('#a-err').textContent=d.message;loadMe(false)});
+};
+$('#a-out').onclick=function(){setTok('');filled=false;location.hash='#/masuk'};
+$('#p-go').onclick=function(){
+  busy(this,'Menyimpan...',async function(){var d=await api('/api/me/password',{old:$('#p-old').value,new:$('#p-new').value},true);
+    $('#a-err').textContent=d.status?'':d.message;$('#a-ok').textContent=d.status?'Password diganti ✓':'';if(d.status){$('#p-old').value='';$('#p-new').value=''}});
+};
+$('#d-go').onclick=function(){
+  if(!confirm('Hapus bot ini permanen?'))return;
+  busy(this,'Menghapus...',async function(){var d=await api('/api/me/delete',{password:$('#d-pw').value},true);
+    if(!d.status)$('#a-err').textContent=d.message;else{setTok('');filled=false;location.hash='#/'}});
+};
+
+/* tema */
+$('#theme').onclick=function(){var r=document.documentElement,dk=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dk?'light':'dark';try{localStorage.setItem('jb-theme',r.dataset.theme)}catch(e){}};
+try{var th=localStorage.getItem('jb-theme');if(th)document.documentElement.dataset.theme=th}catch(e){}
+route();
+</script>
+</body>
+</html>
